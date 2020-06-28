@@ -5,7 +5,7 @@
 // const firstGradeWords = ['annoy', 'ignore', 'prefer', 'calm', 'investigate', 'protect', 'comfortable', 'invite', 'proud', 'consequences', 'important', 'question', 'curious', 'jealous', 'reminds', 'curve', 'leader', 'repeat', 'decide', 'list', 'report', 'directions', 'listen', 'rhyme', 'discover', 'lovely', 'respect', 'disappointed', 'measuring', 'searching', 'embarrassed', 'miserable', 'special', 'enormous', 'mumble', 'spotless', 'exhausted', 'negative', 'squirm', 'explore', 'nervous', 'stomped', 'fair', 'nibbled', 'suddenly', 'fascinating', 'note', 'suggestion', 'feast', 'notice', 'surprise', 'focus', 'observing', 'uncomfortable', 'frustrated', 'opposite', 'warning', 'gigantic', 'ordinary', 'wonder', 'grumpy', 'positive', 'worried', 'huge', 'precious'];
 
 // 6 letter or less words
-const kindergartenWords = ['cat', 'sun', 'cup', 'ghost', 'flower', 'pie', 'cow', 'banana', 'bug', 'book', 'jar', 'snake', 'light', 'tree', 'lips', 'apple', 'slide', 'socks', 'smile', 'swing', 'coat', 'shoe', 'water', 'heart', 'hat', 'ocean', 'kite', 'dog', 'mouth', 'milk', 'duck', 'eyes', 'skate', 'bird', 'boy', 'person', 'girl', 'mouse', 'ball', 'house', 'star', 'nose', 'bed', 'whale', 'jacket', 'shirt', 'beach', 'egg', 'face', 'cookie', 'cheese', 'drum', 'circle', 'spoon', 'warm', 'spider'];
+const kindergartenWords = ['cat', 'sun', 'cup', 'ghost', 'flower', 'pie', 'cow', 'banana', 'bug', 'book', 'jar', 'snake', 'light', 'tree', 'lips', 'apple', 'slide', 'socks', 'smile', 'swing', 'coat', 'shoe', 'water', 'heart', 'hat', 'ocean', 'kite', 'dog', 'mouth', 'milk', 'duck', 'eyes', 'skate', 'bird', 'boy', 'person', 'girl', 'mouse', 'ball', 'house', 'star', 'nose', 'bed', 'whale', 'jacket', 'shirt', 'beach', 'egg', 'face', 'cookie', 'cheese', 'drum', 'circle', 'spoon', 'warm', 'spider', 'letter'];
 
 var word = getRandomWord();
 var lettersFound = 0;
@@ -16,6 +16,9 @@ const lettersEl = document.querySelectorAll(".letter");
 const wordElement = document.getElementById("word");
 const nextWord = document.getElementById("play-again");
 const svgDiv = document.getElementById("svg-container");
+
+const speechIcon = document.getElementById("speech-icon");
+const synth = window.speechSynthesis;
 
 function startGame() {
   displayNumOfLetters();
@@ -32,8 +35,9 @@ function resetGame(event) {
     lettersEl[j].style.color = "#fff";
     lettersEl[j].style.pointerEvents = "auto";
   }
-  wordElement.innerHTML = "";
+  speechIcon.style.visibility = "hidden";
   nextWord.style.visibility = "hidden";
+  wordElement.innerHTML = "";
   startListening();
   word = getRandomWord();
   lettersFound = 0;
@@ -55,7 +59,7 @@ function findLetter(x) {
 
   while (i < word.length) { // iterate through the length of the word to find the letter(s)
     position = word.indexOf(x, i);
-    
+
     if (position < 0 && i === 0) { // if there is no letter in the word
       tries--;
       showIncorrectLetter(x);
@@ -73,7 +77,7 @@ function findLetter(x) {
       // console.log("remaining:" + remainingLetters);
       i = position + 1;
     }
-  }  
+  }
 }
 
 function showCorrectLetter(index) {
@@ -112,6 +116,7 @@ function getLetter(event) {
   } else if (remainingLetters === 0) {
     // console.log("you won");
     stopListening();
+    speechIcon.style.visibility = "visible";
     nextWord.style.visibility = "visible";
   }
 }
@@ -120,6 +125,7 @@ function showWord() {
   for (let i = 0; i < word.length; i++) {
     wordElement.children[i].textContent = word[i];
   }
+  speechIcon.style.visibility = "visible";
 }
 
 function drawHangman() {
@@ -144,8 +150,6 @@ function drawHangman() {
   }
 }
 
-
-
 function stopListening() {
   for (let j = 0; j < lettersEl.length; j++) {
     lettersEl[j].removeEventListener("click", getLetter);
@@ -159,6 +163,14 @@ function startListening() {
 }
 
 nextWord.addEventListener("click", resetGame);
+
+speechIcon.addEventListener("click", function(){
+  event.preventDefault();
+  let voices = synth.getVoices();
+  let utterThis = new SpeechSynthesisUtterance(word);
+  utterThis.voice = voices[0];
+  synth.speak(utterThis);
+});
 
 startGame();
 startListening();

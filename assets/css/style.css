@@ -42,7 +42,7 @@ body {
 
 #svg-container {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .svg-container-animation {
@@ -59,7 +59,7 @@ body {
   }
   100% {
     transform: scale(1,1);
-  }  
+  }
 }
 
 .word-container {
@@ -67,6 +67,17 @@ body {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-template-rows: 1fr 1fr 1fr;
+}
+
+#speech-container {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  align-self: center;
+  text-align: center;
+}
+
+#speech-icon {
+  visibility: hidden;
 }
 
 #word{
@@ -100,6 +111,7 @@ body {
   transition-timing-function: ease-in;
   transition: 1s;
   cursor: pointer;
+  margin-right: 15px;
 }
 
 #head,
@@ -124,7 +136,7 @@ body {
 #body {
   stroke-dasharray: 321.0829772949219;
   stroke-dashoffset: 321.0829772949219;
-  -webkit-animation: hangman-animation 1s linear forwards;  
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
