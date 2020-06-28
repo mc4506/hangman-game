@@ -19,6 +19,8 @@ const svgDiv = document.getElementById("svg-container");
 
 const speechIcon = document.getElementById("speech-icon");
 const synth = window.speechSynthesis;
+const voices = synth.getVoices();
+let voice = voices.find(_voice => /en-US/.test(_voice.lang));
 
 function startGame() {
   displayNumOfLetters();
@@ -166,11 +168,12 @@ nextWord.addEventListener("click", resetGame);
 
 speechIcon.addEventListener("click", function(){
   event.preventDefault();
-  // let voices = synth.getVoices();
-  let utterThis = new SpeechSynthesisUtterance(word);
-  utterThis.lang = 'en-US';
-  // utterThis.voice = voices[0];
-  synth.speak(utterThis);
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = 'en-US';
+  utterance.pitch = 1;
+  utterance.rate = 1;
+  utterance.voice = voice;
+  synth.speak(utterance);
 });
 
 startGame();
