@@ -107,11 +107,11 @@ function getLetter(event) {
     showWord();
     stopListening();
     svgDiv.setAttribute("class", "svg-container-animation");
-    nextWord.style.opacity = "1.0";
+    nextWord.style.visibility = "visible";
   } else if (remainingLetters === 0) {
     // console.log("you won");
     stopListening();
-    nextWord.style.opacity = "1.0";
+    nextWord.style.visibility = "visible";
   }
 }
 

@@ -91,14 +91,12 @@ body {
 
 
 #play-again{
+  visibility: hidden;
   grid-row-start: 3;
   grid-row-end: 4;
   text-align: end;
   align-self: end;
   font-size: 4em;
-  opacity: 0.0;
-  transition-timing-function: ease-in;
-  transition: 1s;
   cursor: pointer;
 }
 
