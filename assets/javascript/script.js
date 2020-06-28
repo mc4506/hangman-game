@@ -166,9 +166,10 @@ nextWord.addEventListener("click", resetGame);
 
 speechIcon.addEventListener("click", function(){
   event.preventDefault();
-  let voices = synth.getVoices();
+  // let voices = synth.getVoices();
   let utterThis = new SpeechSynthesisUtterance(word);
-  utterThis.voice = voices[0];
+  utterThis.lang = 'en-US';
+  // utterThis.voice = voices[0];
   synth.speak(utterThis);
 });
 
