@@ -41,6 +41,7 @@ body {
 }
 
 .svg-container-animation {
+  -webkit-animation: svg-animation 3s ease-in-out;
   animation: svg-animation 3s ease-in-out;
 }
 
@@ -111,52 +112,58 @@ body {
 #head {
   stroke-dasharray: 638.2032470703125;
   stroke-dashoffset: 638.2032470703125;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #body {
   stroke-dasharray: 321.0829772949219;
   stroke-dashoffset: 321.0829772949219;
+  -webkit-animation: hangman-animation 1s linear forwards;  
   animation: hangman-animation 1s linear forwards;
 }
 
 #left-arm {
   stroke-dasharray: 169.3226318359375;
   stroke-dashoffset: 169.3226318359375;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #right-arm {
   stroke-dasharray: 170.7257080078125;
   stroke-dashoffset: 170.7257080078125;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #right-leg {
   stroke-dasharray: 256.4714660644531;
   stroke-dashoffset: 256.4714660644531;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #left-leg {
   stroke-dasharray: 256.4714660644531;
   stroke-dashoffset: 256.4714660644531;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #left-eye {
   stroke-dasharray: 54.6486701965332;
   stroke-dashoffset: 54.6486701965332;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
 
 #right-eye {
   stroke-dasharray: 54.6486701965332;
   stroke-dashoffset: 54.6486701965332;
+  -webkit-animation: hangman-animation 1s linear forwards;
   animation: hangman-animation 1s linear forwards;
 }
-
-
 
 @keyframes hangman-animation {
   to {
