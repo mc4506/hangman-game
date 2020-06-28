@@ -33,6 +33,7 @@ function resetGame(event) {
     lettersEl[j].style.pointerEvents = "auto";
   }
   wordElement.innerHTML = "";
+  nextWord.style.opacity = "0";
   startListening();
   word = getRandomWord();
   lettersFound = 0;
@@ -107,11 +108,11 @@ function getLetter(event) {
     showWord();
     stopListening();
     svgDiv.setAttribute("class", "svg-container-animation");
-    nextWord.style.visibility = "visible";
+    nextWord.style.opacity = "1.0";
   } else if (remainingLetters === 0) {
     // console.log("you won");
     stopListening();
-    nextWord.style.visibility = "visible";
+    nextWord.style.opacity = "1.0";
   }
 }
 
