@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Hangman Game</title>
         <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./assets/css/reset.css">
         <link rel="stylesheet" href="./assets/css/style.css">
@@ -13,39 +13,39 @@
 
     <body>
         <header class="title">
-            <h1>LET'S PLAY</h1>
+            <h1>HANGMAN</h1>
         </header>
 
-        <section id="letters">
-                <span class="letter" data-letter="A">A</span>
-                <span class="letter" data-letter="B">B</span>
-                <span class="letter" data-letter="C">C</span>
-                <span class="letter" data-letter="D">D</span>
-                <span class="letter" data-letter="E">E</span>
-                <span class="letter" data-letter="F">F</span>
-                <span class="letter" data-letter="G">G</span>
-                <span class="letter" data-letter="H">H</span>
-                <span class="letter" data-letter="I">I</span>
-                <span class="letter" data-letter="J">J</span>
-                <span class="letter" data-letter="K">K</span>
-                <span class="letter" data-letter="L">L</span>
-                <span class="letter" data-letter="M">M</span>
-                <span class="letter" data-letter="N">N</span>
-                <span class="letter" data-letter="O">O</span>
-                <span class="letter" data-letter="P">P</span>
-                <span class="letter" data-letter="Q">Q</span>
-                <span class="letter" data-letter="R">R</span>
-                <span class="letter" data-letter="S">S</span>
-                <span class="letter" data-letter="T">T</span>
-                <span class="letter" data-letter="U">U</span>
-                <span class="letter" data-letter="V">V</span>
-                <span class="letter" data-letter="W">W</span>
-                <span class="letter" data-letter="X">X</span>
-                <span class="letter" data-letter="Y">Y</span>
-                <span class="letter" data-letter="Z">Z</span>
-        </section>
+        <div id="letters">
+            <span class="letter" data-letter="A">A</span>
+            <span class="letter" data-letter="B">B</span>
+            <span class="letter" data-letter="C">C</span>
+            <span class="letter" data-letter="D">D</span>
+            <span class="letter" data-letter="E">E</span>
+            <span class="letter" data-letter="F">F</span>
+            <span class="letter" data-letter="G">G</span>
+            <span class="letter" data-letter="H">H</span>
+            <span class="letter" data-letter="I">I</span>
+            <span class="letter" data-letter="J">J</span>
+            <span class="letter" data-letter="K">K</span>
+            <span class="letter" data-letter="L">L</span>
+            <span class="letter" data-letter="M">M</span>
+            <span class="letter" data-letter="N">N</span>
+            <span class="letter" data-letter="O">O</span>
+            <span class="letter" data-letter="P">P</span>
+            <span class="letter" data-letter="Q">Q</span>
+            <span class="letter" data-letter="R">R</span>
+            <span class="letter" data-letter="S">S</span>
+            <span class="letter" data-letter="T">T</span>
+            <span class="letter" data-letter="U">U</span>
+            <span class="letter" data-letter="V">V</span>
+            <span class="letter" data-letter="W">W</span>
+            <span class="letter" data-letter="X">X</span>
+            <span class="letter" data-letter="Y">Y</span>
+            <span class="letter" data-letter="Z">Z</span>
+        </div>
 
-        <div id="hangman">
+        <div id="wrapper">
             <div id="svg-container">
                 <svg width="100%" height="100%" viewBox="0 0 670 1233" version="1.1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
@@ -79,9 +79,11 @@
                     <!-- length = 54.6486701965332 -->
                     <path id="right-eye" d="M515.426,355.895c0,0 24.14,-26.111 47.818,0"
                         style="fill:none;stroke:#fff;stroke-width:10px;" />
+                    <!-- length = 54.6486701965332 -->
+                    <path id="mouth" d="M481.41,418.257c0,0 24.14,-26.111 47.818,0"
+                        style="fill:none;stroke:#fff;stroke-width:10px;" />
                 </svg>
             </div>
-
 
             <section class="word-container">
                 <h2 id="word">
@@ -89,24 +91,6 @@
                 <h5 id="play-again">NEXT</h5>
             </section>
         </div>
-
-
-
-        <!-- LETTER A -->
-        <!-- <svg width="100%" height="100%" viewBox="0 0 634 702" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
-                style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-                    <path id="letterA" d="M100.183,651.008c0,0 57.629,-405.939 155.293,-532.302c97.664,-126.364 132.822,-143.747 276.614,532.302" style="fill:none;stroke:#f00;stroke-width:100px;"/>
-                    <path id="letterAline" d="M50,384.857c0,0 228.945,-51.167 533.461,-33.02" style="fill:none;stroke:#f00;stroke-width:100px;"/>
-            </svg>
-
-            <!-- LETTER B -->
-        <!-- <svg width="100%" height="100%" viewBox="0 0 575 717" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
-                style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
-                <path id="letterB"
-                    d="M62.821,661.546c0,0 -40.453,-560.006 38.45,-601.008c78.903,-41.002 498.282,40.969 337.878,188.136c-203.912,187.085 -340.551,109.511 -386.691,128.264c-46.14,18.752 574.007,-51.823 457.178,164.692c-105.465,195.455 -406.02,97.079 -446.815,119.916Z"
-                    style="fill:none;stroke:#f00;stroke-width:100px;" /></svg> -->
 
     </body>
 

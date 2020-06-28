@@ -20,7 +20,6 @@ body {
 }
 
 .letter {
-  display: inline block;
   cursor: pointer;
   justify-self: center;
   transition: 0.5s;
@@ -32,7 +31,7 @@ body {
   transition-timing-function: ease-in-out;
 }
 
-#hangman {
+#wrapper {
   display: grid;
   grid-template-columns: minmax(100px, 1fr) 3fr;
   column-gap: 10px;
@@ -41,9 +40,20 @@ body {
   margin-top: 10px;
 }
 
-#svg-container{
-  
+.svg-container-animation {
+  animation: svg-animation 3s ease-in-out;
+}
 
+@keyframes svg-animation {
+  0% {
+    transform: scale(1,1);
+  }
+  50% {
+    transform: scale(1.1,1.1);
+  }
+  100% {
+    transform: scale(1,1);
+  }  
 }
 
 .word-container {
@@ -59,6 +69,7 @@ body {
   font-size: 4em;
   text-align: center;
   align-self: center;
+  transition: 1s;
 }
 
 #word span {
@@ -68,6 +79,7 @@ body {
   vertical-align: bottom;
   width: 0.5em;
   height: 69px;
+  transition-timing-function: ease-in;
   /* max-width: 1em; */
 }
 
@@ -77,10 +89,11 @@ body {
   grid-row-end: 4;
   text-align: end;
   align-self: end;
-  font-size: 2em;
+  font-size: 4em;
   opacity: 0.0;
   transition-timing-function: ease-in;
   transition: 1s;
+  cursor: pointer;
 }
 
 #head,
@@ -90,7 +103,8 @@ body {
 #left-eye,
 #right-arm,
 #right-leg,
-#right-eye {
+#right-eye,
+#mouth {
   display: none;
 }
 
@@ -149,54 +163,6 @@ body {
     stroke-dashoffset: 0;
   }
 }
-
-/* LETTER A */
-
-/*
-#letterA {
-  stroke-dasharray: 1311;
-  stroke-dashoffset: 1311;
-  animation: letter-animation 1s linear forwards;
-}
-
-#letterAline {
-  stroke-dasharray: 535;
-  stroke-dashoffset: 535;
-  animation: line-animation 1.5s linear forwards;
-}
-
-@keyframes letter-animation {
-  to {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes line-animation {
-  0% {
-    opacity: 0;
-    stroke-dashoffset: 535;
-  }
-
-  65% {
-    opacity: 0;
-    stroke-dashoffset: 535;
-  }
-
-  66% {
-    stroke-dashoffset: 535;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-} */
-
-
-/* LETTER B */
-/* #letterB {
-  stroke-dasharray: 2602;
-  stroke-dashoffset: 2602;
-  animation: letter-animation 1.5s linear forwards;
-} */
 
 @media (min-width: 768px) {
   #word {

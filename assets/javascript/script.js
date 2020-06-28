@@ -4,21 +4,42 @@
 
 // const firstGradeWords = ['annoy', 'ignore', 'prefer', 'calm', 'investigate', 'protect', 'comfortable', 'invite', 'proud', 'consequences', 'important', 'question', 'curious', 'jealous', 'reminds', 'curve', 'leader', 'repeat', 'decide', 'list', 'report', 'directions', 'listen', 'rhyme', 'discover', 'lovely', 'respect', 'disappointed', 'measuring', 'searching', 'embarrassed', 'miserable', 'special', 'enormous', 'mumble', 'spotless', 'exhausted', 'negative', 'squirm', 'explore', 'nervous', 'stomped', 'fair', 'nibbled', 'suddenly', 'fascinating', 'note', 'suggestion', 'feast', 'notice', 'surprise', 'focus', 'observing', 'uncomfortable', 'frustrated', 'opposite', 'warning', 'gigantic', 'ordinary', 'wonder', 'grumpy', 'positive', 'worried', 'huge', 'precious'];
 
-// const kindergartenWords = ['cat', 'sun', 'cup', 'ghost', 'flower', 'pie', 'cow', 'banana', 'snowflake', 'bug', 'book', 'jar', 'snake', 'light', 'tree', 'lips', 'apple', 'slide', 'socks', 'smile', 'swing', 'coat', 'shoe', 'water', 'heart', 'hat', 'ocean', 'kite', 'dog', 'mouth', 'milk', 'duck', 'eyes', 'skateboard', 'bird', 'boy', 'person', 'girl', 'mouse', 'ball', 'house', 'star', 'nose', 'bed', 'whale', 'jacket', 'shirt', 'beach', 'egg', 'face', 'cookie', 'cheese', 'drum', 'circle', 'spoon', 'warm', 'spider'];
+// 6 letter or less words
+const kindergartenWords = ['cat', 'sun', 'cup', 'ghost', 'flower', 'pie', 'cow', 'banana', 'bug', 'book', 'jar', 'snake', 'light', 'tree', 'lips', 'apple', 'slide', 'socks', 'smile', 'swing', 'coat', 'shoe', 'water', 'heart', 'hat', 'ocean', 'kite', 'dog', 'mouth', 'milk', 'duck', 'eyes', 'skate', 'bird', 'boy', 'person', 'girl', 'mouse', 'ball', 'house', 'star', 'nose', 'bed', 'whale', 'jacket', 'shirt', 'beach', 'egg', 'face', 'cookie', 'cheese', 'drum', 'circle', 'spoon', 'warm', 'spider'];
 
-var word = "LETTER"
+var word = getRandomWord();
 var lettersFound = 0;
 var remainingLetters = word.length;
-var tries = 8;
+var tries = 9;
 
-const lettersEl = document.getElementById("letters");
-console.log(lettersEl);
-var wordElement = document.getElementById("word");
-var nextWord = document.getElementById("play-again");
+const lettersEl = document.querySelectorAll(".letter");
+const wordElement = document.getElementById("word");
+const nextWord = document.getElementById("play-again");
+const svgDiv = document.getElementById("svg-container");
 
+function startGame() {
+  displayNumOfLetters();
+}
 
-displayNumOfLetters();
-
+function resetGame(event) {
+  // console.log("next");
+  let svgIds = document.querySelectorAll("#head,#body, #left-arm, #left-leg, #left-eye, #right-arm, #right-leg, #right-eye, #mouth");
+  for (let i = 0; i < svgIds.length; i++){
+    svgIds[i].style.display = "none";
+  }
+  for (let j = 0; j < lettersEl.length; j++){
+    lettersEl[j].style.opacity = "1.0";
+    lettersEl[j].style.color = "#fff";
+    lettersEl[j].style.pointerEvents = "auto";
+  }
+  wordElement.innerHTML = "";
+  startListening();
+  word = getRandomWord();
+  lettersFound = 0;
+  remainingLetters = word.length;
+  tries = 9;
+  displayNumOfLetters();
+}
 
 function displayNumOfLetters() {
   for (let i = 0; i < word.length; i++){
@@ -31,23 +52,24 @@ function findLetter(x) {
   let i = 0;
   let position;
 
-  while (i < word.length) {
+  while (i < word.length) { // iterate through the length of the word to find the letter(s)
     position = word.indexOf(x, i);
     
-    if (position < 0 && i === 0) {
+    if (position < 0 && i === 0) { // if there is no letter in the word
       tries--;
       showIncorrectLetter(x);
       drawHangman();
-      console.log("try:" + tries);
+      // console.log("try:" + tries);
       break;
-    } else if (position < 0 && i > 0) {
+    } else if (position < 0 && i > 0) { // if there was a letter that was already found
       break;
-    } else {
-      console.log("position:" + position);
+    } else { // if there is at least one letter
+      // console.log("position:" + position);
       lettersFound++;
+      disableCorrectLetter(x);
       showCorrectLetter(position);
       remainingLetters--;
-      console.log("remaining:" + remainingLetters);
+      // console.log("remaining:" + remainingLetters);
       i = position + 1;
     }
   }  
@@ -58,49 +80,84 @@ function showCorrectLetter(index) {
 }
 
 function showIncorrectLetter(letter) {
-  let incorrectLetter = lettersEl.querySelector(`[data-letter="${letter}"]`);
+  let incorrectLetter = document.querySelector(`[data-letter="${letter}"]`);
   incorrectLetter.style.opacity = "0.1";
   incorrectLetter.style.pointerEvents = "none";
 }
 
+function disableCorrectLetter(letter) {
+  let correctLetter = document.querySelector(`[data-letter="${letter}"]`);
+  correctLetter.style.opacity = "0.75";
+  correctLetter.style.color = "orange";
+  correctLetter.style.pointerEvents = "none";
+}
+
 function getRandomWord() {
   let wordIndex = Math.floor(Math.random() * kindergartenWords.length);
-  return kindergartenWords[wordIndex];
+  return kindergartenWords[wordIndex].toUpperCase();
 }
 
 function getLetter(event) {
+  event.stopPropagation();
   let selectedLetter = event.target.getAttribute("data-letter");
-  console.log(selectedLetter);
+  // console.log(selectedLetter);
   findLetter(selectedLetter);
   if (tries === 0) {
-    console.log("you lose");
-    lettersEl.removeEventListener("click", getLetter);
+    // console.log("you lose");
+    showWord();
+    stopListening();
+    svgDiv.setAttribute("class", "svg-container-animation");
+    nextWord.style.opacity = "1.0";
   } else if (remainingLetters === 0) {
-    console.log("you won");
-    lettersEl.removeEventListener("click", getLetter);
+    // console.log("you won");
+    stopListening();
     nextWord.style.opacity = "1.0";
   }
 }
 
+function showWord() {
+  for (let i = 0; i < word.length; i++) {
+    wordElement.children[i].textContent = word[i];
+  }
+}
+
 function drawHangman() {
-  if (tries === 7) {
+  if (tries === 8) {
     document.getElementById("head").style.display = "block";
-  } else if (tries === 6) {
+  } else if (tries === 7) {
     document.getElementById("body").style.display = "block";
-  } else if (tries === 5) {
+  } else if (tries === 6) {
     document.getElementById("left-arm").style.display = "block";
-  } else if (tries === 4) {
+  } else if (tries === 5) {
     document.getElementById("right-arm").style.display = "block";
-  } else if (tries === 3) {
+  } else if (tries === 4) {
     document.getElementById("left-leg").style.display = "block";
-  } else if (tries === 2) {
+  } else if (tries === 3) {
     document.getElementById("right-leg").style.display = "block";
-  } else if (tries === 1) {
+  } else if (tries === 2) {
     document.getElementById("left-eye").style.display = "block";
-  } else if (tries === 0) {
+  } else if (tries === 1) {
     document.getElementById("right-eye").style.display = "block";
+  } else if (tries === 0) {
+    document.getElementById("mouth").style.display = "block";
   }
 }
 
 
-lettersEl.addEventListener("click", getLetter);
+
+function stopListening() {
+  for (let j = 0; j < lettersEl.length; j++) {
+    lettersEl[j].removeEventListener("click", getLetter);
+  }
+}
+
+function startListening() {
+  for (let j = 0; j < lettersEl.length; j++) {
+    lettersEl[j].addEventListener("click", getLetter);
+  }
+}
+
+nextWord.addEventListener("click", resetGame);
+
+startGame();
+startListening();
